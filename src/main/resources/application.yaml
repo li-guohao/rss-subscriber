@@ -1,0 +1,41 @@
+app:
+  log:
+    level: INFO
+
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: true
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+
+server:
+  port: 8888
+  forward-headers-strategy: native
+  compression:
+    enabled: false
+  error:
+    include-message: always
+  servlet:
+    encoding:
+      charset: UTF-8
+  jetty:
+    max-http-post-size: 0
+    acceptors:
+    selectors:
+
+logging:
+  level:
+    cn.liguohao.rss.subscriber: ${app.log.level}
+  file:
+    name: logs/rss-subscriber.log
+

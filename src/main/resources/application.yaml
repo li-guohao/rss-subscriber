@@ -1,6 +1,6 @@
 app:
   log:
-    level: INFO
+    level: DEBUG
 
 spring:
   jackson:

@@ -1,6 +1,8 @@
 app:
   log:
     level: DEBUG
+  token: ${RSS_SUBSCRIBER_APP_TOKEN}
+  targetEmail: ${RSS_SUBSCRIBER_SMTP_TARGET_EMAIL}
 
 spring:
   jackson:
@@ -17,6 +19,31 @@ spring:
         content:
           enabled: true
           paths: /**
+  mail:
+    host: ${RSS_SUBSCRIBER_SMTP_HOST}
+    port:
+    username: ${RSS_SUBSCRIBER_SMTP_USERNAME}
+    password: ${RSS_SUBSCRIBER_SMTP_PASSWORD}
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+      mail.smtp.socketFactory.port: 465
+      mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
+      mail.smtp.socketFactory.fallback: false
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    # H2 database configuration.
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:./db/rss-subscriber
+    username: admin
+    password: 123456
 
 server:
   port: 8888

@@ -9,4 +9,6 @@ public interface RSSSubscribeRepository extends JpaRepository<RSSSubscribe, Long
     boolean existsByAddressEqualsIgnoreCase(String address);
 
     List<RSSSubscribe> findByStatusIs(RSSSubscribe.Status status);
+
+    List<RSSSubscribe> findByStatusAndNameContains(RSSSubscribe.Status status, String name);
 }

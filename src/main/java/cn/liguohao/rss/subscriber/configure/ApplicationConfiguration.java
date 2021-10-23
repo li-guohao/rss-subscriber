@@ -19,7 +19,10 @@ public class ApplicationConfiguration {
 
     @Autowired private RSSService rssService;
 
-    @Scheduled(cron = "0 */5 * * * ?")
+    /**
+     * 半小时扫描一次
+     */
+    @Scheduled(cron = "0 */30 * * * ?")
     public void execScanRSSUpdate() {
         long startTime = System.currentTimeMillis();
         if(LOGGER.isDebugEnabled()) {

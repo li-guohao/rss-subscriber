@@ -17,13 +17,6 @@ public class RSSArtice {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "rsid")
-    private Integer rsid;
-
-    @Lob
-    @Column(name = "content")
-    private String content;
-
     @Column(name = "outline")
     private String outline;
 
@@ -31,8 +24,62 @@ public class RSSArtice {
     @Column(name = "release_time")
     private Date releaseTime;
 
-    @Column(name = "magnetic_link")
-    private String magneticLink;
+    @Column(name = "author")
+    private String author;
+
+    @Lob
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "rsid")
+    private Long rsid;
+
+    @Lob
+    @Column(name = "content")
+    private String content;
+
+    @Column(name = "page_url")
+    private String pageUrl;
+
+    public String getPageUrl() {
+        return pageUrl;
+    }
+
+    public void setPageUrl(String pageUrl) {
+        this.pageUrl = pageUrl;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Long getRsid() {
+        return rsid;
+    }
+
+    public void setRsid(Long rsid) {
+        this.rsid = rsid;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public Long getId() {
         return id;
@@ -40,14 +87,6 @@ public class RSSArtice {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getMagneticLink() {
-        return magneticLink;
-    }
-
-    public void setMagneticLink(String magneticLink) {
-        this.magneticLink = magneticLink;
     }
 
     public Date getReleaseTime() {
@@ -64,22 +103,6 @@ public class RSSArtice {
 
     public void setOutline(String outline) {
         this.outline = outline;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getRsid() {
-        return rsid;
-    }
-
-    public void setRsid(Integer rsid) {
-        this.rsid = rsid;
     }
 
     public String getTitle() {

@@ -34,6 +34,8 @@
         <java.version>11</java.version>
         <fastjson.version>1.2.78</fastjson.version>
         <httpclient.version>4.5.12</httpclient.version>
+        <rhome.version>1.15.0</rhome.version>
+        <jsonp.version>1.13.1</jsonp.version>
     </properties>
 
     <dependencies>
@@ -92,6 +94,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
+        <!-- RSS 解析器 -->
+        <dependency>
+            <groupId>com.rometools</groupId>
+            <artifactId>rome</artifactId>
+            <version>${rhome.version}</version>
+        </dependency>
+
+        <!--HTML 解析器-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsonp.version}</version>
+        </dependency>
+
+
 
         <!--测试-->
         <dependency>

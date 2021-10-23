@@ -131,4 +131,16 @@
 
     </dependencies>
 
+    <build>
+        <finalName>rss-subscriber-${version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>cn.liguohao.rss.subscriber.RSSSubscriberApplication</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

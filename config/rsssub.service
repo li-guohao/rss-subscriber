@@ -1,0 +1,18 @@
+[Unit]
+Description=RSS Sub
+After=network.target
+Wants=network.target
+
+[Service]
+WorkingDirectory=/root/.rss-subscriber
+ExecStart=/root/.rss-subscriber/start.sh
+Restart=on-abnormal
+TimeoutStartSec=0
+RestartSec=10s
+KillMode=mixed
+
+StandardOutput=null
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

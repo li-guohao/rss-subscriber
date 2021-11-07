@@ -5,21 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Properties;
-import java.util.UUID;
 
 /**
  * @author <a href="http://liguohao.cn" target="_blank">liguohao</a>
@@ -29,11 +20,15 @@ import java.util.UUID;
 public class MailService {
     private final static Logger LOGGER = LoggerFactory.getLogger(MailService.class);
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
-    @Value("${spring.mail.username}")
-    private String from;
+    private final String from;
+
+    public MailService(@Autowired JavaMailSender mailSender,
+                       @Value("${spring.mail.username}") String from) {
+        this.mailSender = mailSender;
+        this.from = from;
+    }
 
     /**
      * @see #publishRSSArticeMail(String, RSSArtice, boolean)

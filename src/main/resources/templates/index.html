@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -8,6 +8,7 @@
 <div align="center">
     <h2>Index Page</h2>
     <p>Hello World</p>
+    <p>test attr value: <span th:text="${testAttr}"></span></p>
 </div>
 </body>
 </html>

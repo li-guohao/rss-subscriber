@@ -1,6 +1,6 @@
 package cn.liguohao.rss.subscriber.service;
 
-import cn.liguohao.rss.subscriber.common.RSSUtil;
+import cn.liguohao.rss.subscriber.common.util.RSSUtil;
 import cn.liguohao.rss.subscriber.dao.RSSArticeRepository;
 import cn.liguohao.rss.subscriber.dao.RSSSubscribeRepository;
 import cn.liguohao.rss.subscriber.entity.RSSArtice;
@@ -26,10 +26,20 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RSSService {
     private final static Logger LOGGER = LoggerFactory.getLogger(RSSService.class);
 
-    @Autowired private RSSSubscribeRepository rssSubscribeRepository;
-    @Autowired private RSSArticeRepository rssArticeRepository;
-    @Autowired private MailService mailService;
-    @Value("${app.targetEmail}") private String targetEmail;
+    private final RSSSubscribeRepository rssSubscribeRepository;
+    private final RSSArticeRepository rssArticeRepository;
+    private final MailService mailService;
+    private final  String targetEmail;
+
+    public RSSService(@Autowired RSSSubscribeRepository rssSubscribeRepository,
+                      @Autowired RSSArticeRepository rssArticeRepository,
+                      @Autowired MailService mailService,
+                      @Value("${app.targetEmail}") String targetEmail) {
+        this.rssSubscribeRepository = rssSubscribeRepository;
+        this.rssArticeRepository = rssArticeRepository;
+        this.mailService = mailService;
+        this.targetEmail = targetEmail;
+    }
 
     public List<RSSSubscribe> findAll() {
         return rssSubscribeRepository.findAll();
@@ -61,7 +71,7 @@ public class RSSService {
 
     public void deleteLatestArtice(Long rsid) {
         Optional<RSSArtice> rssArticeOptional = rssArticeRepository.findByRsidOrderByReleaseTimeDescIdDesc(rsid).stream().findFirst();
-        if(rssArticeOptional.isPresent()) {
+        if(rssArticeOptional != null && rssArticeOptional.isPresent()) {
             rssArticeRepository.delete(rssArticeOptional.get());
         }
     }

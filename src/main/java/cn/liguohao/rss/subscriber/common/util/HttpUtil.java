@@ -1,4 +1,4 @@
-package cn.liguohao.rss.subscriber.common;
+package cn.liguohao.rss.subscriber.common.util;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;

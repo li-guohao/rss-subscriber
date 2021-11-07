@@ -1,4 +1,4 @@
-package cn.liguohao.rss.subscriber.common;
+package cn.liguohao.rss.subscriber.common.util;
 
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;

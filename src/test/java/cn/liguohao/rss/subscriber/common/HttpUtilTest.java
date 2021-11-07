@@ -1,5 +1,6 @@
 package cn.liguohao.rss.subscriber.common;
 
+import cn.liguohao.rss.subscriber.common.util.HttpUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

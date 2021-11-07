@@ -1,4 +1,4 @@
-package cn.liguohao.rss.subscriber.controller;
+package cn.liguohao.rss.subscriber.api;
 
 import cn.liguohao.rss.subscriber.entity.RSSArtice;
 import cn.liguohao.rss.subscriber.entity.RSSSubscribe;
@@ -19,8 +19,8 @@ import java.util.List;
  * @date 2021/10/23
  */
 @RestController
-@RequestMapping("/api/rss/subscriber")
-public class RSSSubscriberRestController {
+@RequestMapping("/api/rsssub")
+public class RSSSubRestController {
 
     @Autowired private RSSService rssService;
     @Value("${app.token}") private String token;

@@ -15,6 +15,9 @@ public class User {
     @Column(name = "username", unique = true)
     private String username;
 
+    /**
+     * 说明：密码不存储明文，只存储MD5加密后的，默认为123456，只能通过手机验证码进行更新
+     */
     @Column(name = "password")
     private String password;
 

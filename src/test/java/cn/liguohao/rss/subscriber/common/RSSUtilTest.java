@@ -1,8 +1,8 @@
 package cn.liguohao.rss.subscriber.common;
 
+import cn.liguohao.rss.subscriber.common.util.RSSUtil;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndFeedImpl;
-import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;

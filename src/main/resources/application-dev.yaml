@@ -1,29 +1,9 @@
 app:
-  env: ${RSS_SUBSCRIBER_ENV:pro}
+  env: dev
   log:
-    level: INFO
-  server:
-    port: 8888
-  token: ${RSS_SUBSCRIBER_APP_TOKEN}
-  targetEmail: ${RSS_SUBSCRIBER_SMTP_TARGET_EMAIL}
+    level: DEBUG
 
 spring:
-  profiles:
-    active: ${app.env}
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML5
-    encoding: UTF-8
-    content-type: text/html
-    cache: true
-    chain:
-      strategy:
-        content:
-          enabled: true
-          paths: /**
   mail:
     host: ${RSS_SUBSCRIBER_SMTP_HOST}
     port:
@@ -39,19 +19,22 @@ spring:
       mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory
       mail.smtp.socketFactory.fallback: false
   jpa:
+    database: MySQL
     show-sql: true
+    generate-ddl: true
     hibernate:
       ddl-auto: update
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    # H2 database configuration.
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:file:./db/rss-subscriber
-    username: admin
-    password: 123456
+#    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://192.168.2.229:33061/rsssub?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: xiaohao943
+    initialization-mode: always
 
 server:
-  port: ${app.server.port}
+  port: 8888
   forward-headers-strategy: native
   compression:
     enabled: false
@@ -60,14 +43,10 @@ server:
   servlet:
     encoding:
       charset: UTF-8
-  jetty:
-    max-http-post-size: 0
-    acceptors:
-    selectors:
 
 logging:
   level:
     cn.liguohao.rss.subscriber: ${app.log.level}
   file:
-    name: logs/rss-subscriber.log
+    name: logs/rss-subscriber-dev.log
 

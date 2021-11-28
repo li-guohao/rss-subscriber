@@ -6,7 +6,7 @@
 
     <groupId>cn.liguohao.rss.subscriber</groupId>
     <artifactId>rss-subscriber</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <description>RSS订阅微程序，用于订阅RSS，并进行消息推送。</description>
 
     <!-- springBoot父依赖 -->
@@ -71,6 +71,11 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+        </dependency>
+        <!--MySql 连接驱动-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
         </dependency>
         <!-- 热部署配置 -->
         <dependency>

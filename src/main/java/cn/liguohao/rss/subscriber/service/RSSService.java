@@ -5,12 +5,15 @@ import cn.liguohao.rss.subscriber.dao.RSSArticeRepository;
 import cn.liguohao.rss.subscriber.dao.RSSSubscribeRepository;
 import cn.liguohao.rss.subscriber.entity.RSSArtice;
 import cn.liguohao.rss.subscriber.entity.RSSSubscribe;
+import cn.liguohao.rss.subscriber.rss.RSSHandler;
 import com.rometools.rome.feed.synd.SyndFeed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -29,15 +32,18 @@ public class RSSService {
     private final RSSSubscribeRepository rssSubscribeRepository;
     private final RSSArticeRepository rssArticeRepository;
     private final MailService mailService;
+    private final RSSHandler rssHandler;
     private final  String targetEmail;
 
     public RSSService(@Autowired RSSSubscribeRepository rssSubscribeRepository,
                       @Autowired RSSArticeRepository rssArticeRepository,
                       @Autowired MailService mailService,
+                      @Autowired RSSHandler rssHandler,
                       @Value("${app.targetEmail}") String targetEmail) {
         this.rssSubscribeRepository = rssSubscribeRepository;
         this.rssArticeRepository = rssArticeRepository;
         this.mailService = mailService;
+        this.rssHandler = rssHandler;
         this.targetEmail = targetEmail;
     }
 
@@ -94,20 +100,15 @@ public class RSSService {
                 AtomicInteger newContentCount = new AtomicInteger(0);
 
                 syndFeed.getEntries().forEach(syndEntry -> {
-                    String title = syndEntry.getTitle();
-                    Date publishedDate = syndEntry.getPublishedDate();
+                    Assert.notNull(syndEntry, "synd feed is null");
+                    RSSArtice rssArtice =
+                            rssHandler.convert(
+                                    rssSubscribe.getId(),
+                                    syndEntry,
+                                    syndEntry.getLink()
+                            );
                     // 如数据库不存在则添加到数据库，并进行消息推送
-                    if(!rssArticeRepository.existsByTitleEqualsAndReleaseTimeIs(title, publishedDate)) {
-                        RSSArtice rssArtice = new RSSArtice();
-                        rssArtice.setRsid(rssSubscribe.getId());
-                        rssArtice.setTitle(title);
-                        rssArtice.setAuthor(syndEntry.getAuthor());
-                        rssArtice.setDescription(syndEntry.getDescription().getValue());
-                        String pageUri = syndEntry.getUri();
-//                        String htmlUrlContent = HttpUtil.doGet(pageUri);
-//                        rssArtice.setContent(htmlUrlContent);
-                        rssArtice.setPageUrl(pageUri);
-                        rssArtice.setReleaseTime(publishedDate);
+                    if(!rssArticeRepository.existsByTitleEqualsAndReleaseTimeIs(rssArtice.getTitle(), rssArtice.getReleaseTime())) {
                         rssArticeRepository.save(rssArtice);
                         // 最近1天内的新内容会发送邮件
                         Date date = new Date();
@@ -115,7 +116,7 @@ public class RSSService {
                         calendar.setTime(date);
                         calendar.add(Calendar.DATE, -1);
                         date = calendar.getTime();
-                        if(date.before(publishedDate)) {
+                        if(date.before(rssArtice.getReleaseTime())) {
                             publishNewContent(rssArtice);
                         }
                         newContentCount.incrementAndGet();
@@ -129,6 +130,7 @@ public class RSSService {
 
             } catch (Exception e) {
                 LOGGER.error("fetch rss feed fail, exception: ", e);
+                throw e;
             }
         }
     }

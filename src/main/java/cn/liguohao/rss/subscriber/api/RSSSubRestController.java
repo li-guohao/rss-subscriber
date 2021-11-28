@@ -69,8 +69,13 @@ public class RSSSubRestController {
         if(!this.token.equals(token)) {
             return "403 You do not have access";
         } else {
-            rssService.scanRSSUpdate();
-            return "success";
+            try {
+                rssService.scanRSSUpdate();
+                return "success";
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return "fail, exception msg is: " + exception.getMessage();
+            }
         }
     }
 

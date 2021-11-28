@@ -1,5 +1,6 @@
 package cn.liguohao.rss.subscriber.entity;
 
+import cn.liguohao.rss.subscriber.rss.RSSSit;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
@@ -20,7 +21,7 @@ public class RSSArtice {
     @Column(name = "outline")
     private String outline;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "release_time")
     private Date releaseTime;
 
@@ -31,7 +32,7 @@ public class RSSArtice {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "rsid")
+    @Column(name = "rsid", nullable = false)
     private Long rsid;
 
     @Lob
@@ -40,6 +41,29 @@ public class RSSArtice {
 
     @Column(name = "page_url")
     private String pageUrl;
+
+    @Column(name = "content_length")
+    private Long contentLength;
+
+    @Enumerated
+    @Column(name = "rss_sit", nullable = false)
+    private RSSSit rssSit;
+
+    public RSSSit getRssSit() {
+        return rssSit;
+    }
+
+    public void setRssSit(RSSSit rssSit) {
+        this.rssSit = rssSit;
+    }
+
+    public Long getContentLength() {
+        return contentLength;
+    }
+
+    public void setContentLength(Long contentLength) {
+        this.contentLength = contentLength;
+    }
 
     public String getPageUrl() {
         return pageUrl;

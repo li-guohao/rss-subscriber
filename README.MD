@@ -22,10 +22,10 @@ RSS订阅微程序，用于订阅RSS，并进行消息推送。
 
 | 接口                                                         | 作用               |
 | ------------------------------------------------------------ | ------------------ |
-| ip:port/api/rss/subscriber/findAll?token=xxx                 | 查询所有的订阅     |
-| ip:port/api/rss/subscriber/add?token=xxx&feed=RSSURL         | 添加订阅           |
-| ip:port/api/rss/subscriber/findArticeByRsid?token=xxx&rsid=1 | 根据订阅ID查询内容 |
-| ip:port/api/rss/subscriber/scan?token=xxx                    | 请求立刻扫描一次   |
+| ip:port/api/rsssub/findAll?token=[token]                 | 查询所有的订阅     |
+| ip:port/api/rsssub/add?token=[token]&feed=[RSSURL]         | 添加订阅           |
+| ip:port/api/rsssub/findArticeByRsid?token=[token]&rsid=[rss_sid] | 根据订阅ID查询内容 |
+| ip:port/api/rsssub/scan?token=[token]                    | 请求立刻扫描一次   |
 
 # 编译
 

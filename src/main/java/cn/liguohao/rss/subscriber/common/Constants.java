@@ -37,7 +37,7 @@ public interface Constants {
     interface RSS {
         String COMICAT = RSSSit.COMICAT.name().toLowerCase(Locale.ROOT);
         String MIKAN = RSSSit.MIKAN.name().toLowerCase(Locale.ROOT);
-        String MIKAN_DATA_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+        String MIKAN_DATA_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
     }
 
 }
